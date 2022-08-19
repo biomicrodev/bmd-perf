@@ -1,3 +1,4 @@
+import cProfile
 import functools
 import sys
 import time
@@ -72,6 +73,40 @@ def viztrace(**viztracer_kwargs) -> Callable:
                 tracer.stop()
                 tracer.save()
                 tracer.terminate()
+
+            return ret_val
+
+        return inner
+
+    return outer
+
+
+def profile() -> Callable:
+    def outer(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def inner(*args, **kwargs):
+            filename = Path(sys.modules["__main__"].__file__).stem
+
+            log_path = (
+                Path(__file__).parents[2]
+                / "logs"
+                / "cprofile"
+                / filename
+                / f"{func.__name__}_{int(time.time())}.prof"
+            )
+
+            log_path.parent.mkdir(exist_ok=True, parents=True)
+
+            pr = cProfile.Profile()
+            pr.enable()
+
+            try:
+                ret_val = func(*args, **kwargs)
+
+            finally:
+                pr.disable()
+                pr.dump_stats(log_path)
+                print(f"cProfile profile saved to {log_path.resolve()}")
 
             return ret_val
 
