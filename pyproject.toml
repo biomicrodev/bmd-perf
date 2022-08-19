@@ -1,0 +1,29 @@
+[project]
+name = "bmd-perf"
+version = "0.0.1"
+description = "Simple performance tools for the Laboratory for Bio-Micro Devices"
+readme = "README.md"
+requires-python = ">=3.7"
+license = { file = "LICENSE" }
+authors = [{ name = "Sebastian Ahn" }]
+keywords = ["performance"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Topic :: Software Development",
+]
+dependencies = ["pint", "viztracer"]
+
+[project.optional-dependencies]
+dev = ["black"]
+
+[project.urls]
+repository = "https://github.com/biomicrodev/bmd-perf"
+laboratory = "https://jonaslab.bwh.harvard.edu"
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
