@@ -40,9 +40,9 @@ class timed_ctx:
             return
 
         t1 = time.perf_counter() * ureg.second
-        dt = t1 - self._t0
+        self._elapsed = t1 - self._t0
 
-        self._out(f"{self._s}: {dt.to_compact():~,.1f}")
+        self._out(f"{self._s}: {self._elapsed.to_compact():~,.1f}")
 
 
 def viztrace(**viztracer_kwargs) -> Callable:
