@@ -58,7 +58,7 @@ def viztrace(**viztracer_kwargs) -> Callable:
                 / "logs"
                 / "viztracer"
                 / filepath.name
-                / f"{func.__name__}_{int(time.time())}.prof"
+                / f"{func.__name__}_{int(time.time())}.json"
             )
             log_path.parent.mkdir(exist_ok=True, parents=True)
 
