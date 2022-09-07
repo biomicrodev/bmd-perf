@@ -49,16 +49,16 @@ def viztrace(**viztracer_kwargs) -> Callable:
     def outer(func: Callable) -> Callable:
         @functools.wraps(func)
         def inner(*args, **kwargs):
-            filename = Path(sys.modules["__main__"].__file__).name
+            filepath = Path(sys.modules["__main__"].__file__)
 
             # the location for log files will most likely change; keep this for now I
             # suppose
             log_path = (
-                Path(__file__).parents[2]
+                filepath.parent
                 / "logs"
                 / "viztracer"
-                / filename
-                / f"{int(time.time())}.json"
+                / filepath.name
+                / f"{func.__name__}_{int(time.time())}.prof"
             )
             log_path.parent.mkdir(exist_ok=True, parents=True)
 
@@ -85,13 +85,13 @@ def profile() -> Callable:
     def outer(func: Callable) -> Callable:
         @functools.wraps(func)
         def inner(*args, **kwargs):
-            filename = Path(sys.modules["__main__"].__file__).stem
+            filepath = Path(sys.modules["__main__"].__file__)
 
             log_path = (
-                Path(__file__).parents[2]
+                filepath.parent
                 / "logs"
                 / "cprofile"
-                / filename
+                / filepath.name
                 / f"{func.__name__}_{int(time.time())}.prof"
             )
 
