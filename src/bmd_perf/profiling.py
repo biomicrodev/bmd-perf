@@ -49,20 +49,20 @@ def viztrace(**viztracer_kwargs) -> Callable:
     def outer(func: Callable) -> Callable:
         @functools.wraps(func)
         def inner(*args, **kwargs):
-            filepath = Path(sys.modules["__main__"].__file__)
-
-            # the location for log files will most likely change; keep this for now I
-            # suppose
-            log_path = (
-                filepath.parent
-                / "logs"
-                / "viztracer"
-                / filepath.name
-                / f"{func.__name__}_{int(time.time())}.json"
-            )
-            log_path.parent.mkdir(exist_ok=True, parents=True)
-
-            viztracer_kwargs["output_file"] = str(log_path)
+            output_file = viztracer_kwargs.pop("output_file", None)
+            if output_file is None:
+                # the location for log files will most likely change; keep this for now
+                # I suppose
+                filepath = Path(sys.modules["__main__"].__file__)
+                log_path = (
+                    filepath.parent
+                    / "logs"
+                    / "viztracer"
+                    / filepath.name
+                    / f"{func.__name__}_{int(time.time())}.json"
+                )
+                log_path.parent.mkdir(exist_ok=True, parents=True)
+                viztracer_kwargs["output_file"] = str(log_path)
 
             tracer = VizTracer(**viztracer_kwargs)
             tracer.start()
