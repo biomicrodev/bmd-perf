@@ -1,29 +1,30 @@
-[project]
+[tool.poetry]
 name = "bmd-perf"
 version = "0.0.1"
 description = "Simple performance tools for the Laboratory for Bio-Micro Devices"
 readme = "README.md"
-requires-python = ">=3.7"
-license = { file = "LICENSE" }
-authors = [{ name = "Sebastian Ahn" }]
+license = "LICENSE"
+authors = ["Sebastian Ahn <wahn1@bwh.harvard.edu>"]
 keywords = ["performance"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
-    "Programming Language :: Python",
-    "Programming Language :: Python :: 3",
     "Topic :: Software Development",
 ]
-dependencies = ["pint", "viztracer"]
+packages = [{ include = "bmd_perf" }]
 
-[project.optional-dependencies]
-dev = ["black"]
+[tool.poetry.dependencies]
+python = ">=3.8"
+pint = "^0.20"
+viztracer = "^0.15"
 
-[project.urls]
-repository = "https://github.com/biomicrodev/bmd-perf"
-laboratory = "https://jonaslab.bwh.harvard.edu"
+[tool.poetry.dev-dependencies]
+black = { version = "^23.1", extras = ["d"] }
+
+#[project.urls]
+#repository = "https://github.com/biomicrodev/bmd-perf"
+#laboratory = "https://jonaslab.bwh.harvard.edu"
 
 [build-system]
-requires = ["setuptools", "wheel"]
-build-backend = "setuptools.build_meta"
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
