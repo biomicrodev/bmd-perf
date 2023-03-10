@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "bmd-perf"
 version = "0.0.1"
-description = "Simple performance tools for the Laboratory for Bio-Micro Devices"
+description = "Simple performance tools for the Laboratory for Bio-Micro Devices @ BWH"
 readme = "README.md"
 license = "LICENSE"
 authors = ["Sebastian Ahn <wahn1@bwh.harvard.edu>"]
@@ -11,6 +11,8 @@ classifiers = [
     "Intended Audience :: Developers",
     "Topic :: Software Development",
 ]
+repository = "https://github.com/biomicrodev/bmd-perf"
+homepage = "https://jonaslab.bwh.harvard.edu"
 packages = [{ include = "bmd_perf", from = "src" }]
 
 [tool.poetry.dependencies]
@@ -18,12 +20,8 @@ python = ">=3.8"
 pint = "^0.20"
 viztracer = "^0.15"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 black = { version = "^23.1", extras = ["d"] }
-
-#[project.urls]
-#repository = "https://github.com/biomicrodev/bmd-perf"
-#laboratory = "https://jonaslab.bwh.harvard.edu"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
